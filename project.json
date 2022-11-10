@@ -82,6 +82,12 @@
         "testCaseType": "TestCase",
         "executionTemplateType": "Local",
         "fileName": "Tests\\WorkflowTestCaseTemplate.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "13d52068-73e3-4e27-9b32-105d9b02c612",
+        "testCaseType": "TestCase",
+        "fileName": "Process\\TestCase_Process.xaml"
       }
     ],
     "modernBehavior": true
