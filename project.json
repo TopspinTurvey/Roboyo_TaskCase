@@ -39,7 +39,8 @@
     },
     "processOptions": {
       "ignoredFiles": [
-        "Process/_scratch_CreateTestData.xaml"
+        "Process/_scratch_CreateTestData.xaml",
+        "Process/Tests/_scratch_CreateTestData.xaml"
       ]
     },
     "fileInfoCollection": [
@@ -90,7 +91,13 @@
         "testCaseId": "13d52068-73e3-4e27-9b32-105d9b02c612",
         "dataVariationFilePath": ".variations\\TestData_Sheet1.json",
         "testCaseType": "TestCase",
-        "fileName": "Process\\TestCase_Process.xaml"
+        "fileName": "Process\\Tests\\TestCase_Process.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "1e0793d3-9e6e-46e6-9075-57647c906885",
+        "testCaseType": "TestCase",
+        "fileName": "Process\\TestCase_InitializeTransactionData.xaml"
       }
     ],
     "modernBehavior": true
