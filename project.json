@@ -97,7 +97,7 @@
         "editingStatus": "InProgress",
         "testCaseId": "1e0793d3-9e6e-46e6-9075-57647c906885",
         "testCaseType": "TestCase",
-        "fileName": "Process\\TestCase_InitializeTransactionData.xaml"
+        "fileName": "Process\\Tests\\TestCase_InitializeTransactionData.xaml"
       }
     ],
     "modernBehavior": true
