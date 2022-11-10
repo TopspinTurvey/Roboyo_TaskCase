@@ -38,7 +38,9 @@
       "privateWorkflows": []
     },
     "processOptions": {
-      "ignoredFiles": []
+      "ignoredFiles": [
+        "Process/_scratch_CreateTestData.xaml"
+      ]
     },
     "fileInfoCollection": [
       {
@@ -86,6 +88,7 @@
       {
         "editingStatus": "InProgress",
         "testCaseId": "13d52068-73e3-4e27-9b32-105d9b02c612",
+        "dataVariationFilePath": ".variations\\TestData_Sheet1.json",
         "testCaseType": "TestCase",
         "fileName": "Process\\TestCase_Process.xaml"
       }
