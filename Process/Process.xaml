@@ -121,6 +121,7 @@
     <Flowchart DisplayName="Flowchart - Process Transaction" sap:VirtualizedContainerService.HintSize="634,646" sap2010:WorkflowViewState.IdRef="Flowchart_1">
       <Flowchart.Variables>
         <Variable x:TypeArguments="x:String" Name="PDFText" />
+        <Variable x:TypeArguments="x:Boolean" Name="PDFReadableText" />
       </Flowchart.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -128,27 +129,61 @@
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
           <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
           <av:Size x:Key="ShapeSize">60,74.66666666666667</av:Size>
-          <av:PointCollection x:Key="ConnectorLocation">300,77.16666666666667 300,127.16666666666667</av:PointCollection>
+          <av:PointCollection x:Key="ConnectorLocation">300,77.16666666666667 300,128.66666666666666</av:PointCollection>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <Flowchart.StartNode>
-        <x:Reference>__ReferenceID0</x:Reference>
+        <x:Reference>__ReferenceID2</x:Reference>
       </Flowchart.StartNode>
-      <FlowStep x:Name="__ReferenceID0">
+      <FlowDecision x:Name="__ReferenceID0" DisplayName="PDF Readable?" sap:VirtualizedContainerService.HintSize="84,86.66666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+        <FlowDecision.Condition>
+          <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="not string.IsNullOrWhiteSpace(PDFText)" />
+        </FlowDecision.Condition>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">200,127.16666666666667</av:Point>
-            <av:Size x:Key="ShapeSize">200,62.666666666666664</av:Size>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">258,236.66666666666666</av:Point>
+            <av:Size x:Key="ShapeSize">84,86.66666666666667</av:Size>
+            <av:PointCollection x:Key="FalseConnector">342,280 440,280 440,358.6666666666667</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\10 - Check PDF Readable.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Process\10 - Check PDF Readable.xaml">
+        <FlowDecision.False>
+          <FlowStep x:Name="__ReferenceID1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">340,358.6666666666667</av:Point>
+                <av:Size x:Key="ShapeSize">200,62.666666666666664</av:Size>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\20.B.10 - Read PDF using OCR.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Process\20.B.10 - Read PDF using OCR.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <scg:Dictionary x:TypeArguments="x:String, Argument" />
+              </ui:InvokeWorkflowFile.Arguments>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:InvokeWorkflowFile>
+          </FlowStep>
+        </FlowDecision.False>
+      </FlowDecision>
+      <FlowStep x:Name="__ReferenceID2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,128.66666666666666</av:Point>
+            <av:Size x:Key="ShapeSize">200,62.666666666666664</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,191.33333333333331 300,236.66666666666666</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="10 - Read PDF Using Text Method.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Process\10 - Read PDF Using Text Method.xaml">
           <ui:InvokeWorkflowFile.Arguments>
             <InArgument x:TypeArguments="x:String" x:Key="in_PDFFile">
               <VisualBasicValue x:TypeArguments="x:String" ExpressionText="InvoiceFile" />
             </InArgument>
-            <OutArgument x:TypeArguments="x:String" x:Key="out_PDFReadableText">
-              <VisualBasicReference x:TypeArguments="x:String" ExpressionText="PDFText" />
-            </OutArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="out_PDFText">
+              <VisualBasicValue x:TypeArguments="x:String" ExpressionText="PDFText" />
+            </InArgument>
           </ui:InvokeWorkflowFile.Arguments>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -156,7 +191,11 @@
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
         </ui:InvokeWorkflowFile>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID0</x:Reference>
+        </FlowStep.Next>
       </FlowStep>
+      <x:Reference>__ReferenceID1</x:Reference>
     </Flowchart>
   </Sequence>
 </Activity>
