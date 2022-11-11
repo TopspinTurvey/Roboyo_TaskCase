@@ -7,7 +7,8 @@
     "UiPath.PDF.Activities": "[3.10.1]",
     "UiPath.System.Activities": "[22.10.3]",
     "UiPath.Testing.Activities": "[22.10.0]",
-    "UiPath.UIAutomation.Activities": "[22.10.3]"
+    "UiPath.UIAutomation.Activities": "[22.10.3]",
+    "UiPath.WebAPI.Activities": "[1.13.2]"
   },
   "webServices": [],
   "entitiesStores": [],
@@ -99,6 +100,18 @@
         "testCaseId": "1e0793d3-9e6e-46e6-9075-57647c906885",
         "testCaseType": "TestCase",
         "fileName": "Process\\Tests\\TestCase_InitializeTransactionData.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "72687ae2-9a4e-477b-a1e7-0a8423d947dd",
+        "testCaseType": "TestCase",
+        "fileName": "Process\\Tests\\TestCase_SortInvoicesByDate.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "b97a85da-4800-40a3-b246-2583f0da4039",
+        "testCaseType": "TestCase",
+        "fileName": "Process\\TestCase_ConvertCurrency.xaml"
       }
     ],
     "modernBehavior": true

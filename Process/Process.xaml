@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="io_TransactionItem" Type="InOutArgument(sd:DataRow)" />
@@ -6,10 +6,10 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1574,1220</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1574,1296.6666666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="30">
+    <scg:List x:TypeArguments="x:String" Capacity="32">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -40,10 +40,12 @@
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>UiPath.PDF.Activities</x:String>
       <x:String>System.Reflection</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="44">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="48">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -87,13 +89,19 @@
       <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
       <AssemblyReference>System.ObjectModel</AssemblyReference>
       <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="696,1155.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="696,1232" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="InvoiceFile" />
       <Variable x:TypeArguments="x:String" Name="InputFolder" />
       <Variable x:TypeArguments="x:String" Name="OutputFile" />
+      <Variable x:TypeArguments="s:String[]" Name="Fields" />
+      <Variable x:TypeArguments="x:Int32" Name="MisspellingTolerance" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -104,23 +112,18 @@
     <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="634,104.66666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Process Transaction: Started Process...&quot;]" />
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\RetrieveKeyData.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="634,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Process\RetrieveKeyData.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_OutputFile">
-          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="OutputFile" />
-        </OutArgument>
-        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-          <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
-        </InArgument>
-        <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
-          <VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="io_TransactionItem" />
-        </InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_InvoiceFile">
-          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="InvoiceFile" />
-        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_OutputFile">[OutputFile]</OutArgument>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+        <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[io_TransactionItem]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_InvoiceFile">[InvoiceFile]</OutArgument>
+        <OutArgument x:TypeArguments="s:String[]" x:Key="out_Fields">[Fields]</OutArgument>
+        <OutArgument x:TypeArguments="x:Int32" x:Key="out_MisspellingTolerance">[MisspellingTolerance]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <Flowchart DisplayName="Flowchart - Process Transaction" sap:VirtualizedContainerService.HintSize="634,646" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart DisplayName="Flowchart - Process Transaction" sap:VirtualizedContainerService.HintSize="634,722.6666666666666" sap2010:WorkflowViewState.IdRef="Flowchart_1">
       <Flowchart.Variables>
         <Variable x:TypeArguments="x:String" Name="PDFText" />
+        <Variable x:TypeArguments="s:String[]" Name="FieldVaues" />
       </Flowchart.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -129,21 +132,19 @@
           <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
           <av:Size x:Key="ShapeSize">60,74.66666666666667</av:Size>
           <av:PointCollection x:Key="ConnectorLocation">300,77.16666666666667 300,128.66666666666666</av:PointCollection>
+          <x:Double x:Key="Height">676.6666666666666</x:Double>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <Flowchart.StartNode>
-        <x:Reference>__ReferenceID3</x:Reference>
+        <x:Reference>__ReferenceID5</x:Reference>
       </Flowchart.StartNode>
-      <FlowDecision x:Name="__ReferenceID1" DisplayName="PDF Readable?" sap:VirtualizedContainerService.HintSize="84,86.66666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
-        <FlowDecision.Condition>
-          <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="not string.IsNullOrWhiteSpace(PDFText)" />
-        </FlowDecision.Condition>
+      <FlowDecision x:Name="__ReferenceID1" Condition="[not string.IsNullOrWhiteSpace(PDFText)]" DisplayName="PDF Readable?" sap:VirtualizedContainerService.HintSize="84,86.66666666666667" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             <av:Point x:Key="ShapeLocation">258,236.66666666666666</av:Point>
             <av:Size x:Key="ShapeSize">84,86.66666666666667</av:Size>
-            <av:PointCollection x:Key="TrueConnector">258,280 240,280 240,358.6666666666667 300,358.6666666666667 300,388.6666666666667</av:PointCollection>
+            <av:PointCollection x:Key="TrueConnector">258,280 240,280 240,358.66666666666663 300,358.66666666666663 300,388.6666666666667</av:PointCollection>
             <av:PointCollection x:Key="FalseConnector">342,280 380,280</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -153,11 +154,15 @@
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <av:Point x:Key="ShapeLocation">200,388.6666666666667</av:Point>
                 <av:Size x:Key="ShapeSize">200,62.666666666666664</av:Size>
+                <av:PointCollection x:Key="ConnectorLocation">300,451.33333333333337 300,501.33333333333337</av:PointCollection>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\30 - Extract Data from Raw.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Process\30 - Extract Data from Raw.xaml">
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="20 - Extract Data from Raw.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Process\20 - Extract Data from Raw.xaml">
               <ui:InvokeWorkflowFile.Arguments>
-                <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                <InArgument x:TypeArguments="s:String[]" x:Key="in_ExtractFields">[Fields]</InArgument>
+                <OutArgument x:TypeArguments="s:String[]" x:Key="out_FieldValues">[FieldVaues]</OutArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ExtractFromText">[PDFText]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_MispellingTolerance">[MisspellingTolerance]</InArgument>
               </ui:InvokeWorkflowFile.Arguments>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -165,6 +170,57 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:InvokeWorkflowFile>
+            <FlowStep.Next>
+              <FlowStep x:Name="__ReferenceID3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <av:Point x:Key="ShapeLocation">200,501.33333333333337</av:Point>
+                    <av:Size x:Key="ShapeSize">200,62.666666666666664</av:Size>
+                    <av:PointCollection x:Key="ConnectorLocation">300,564 300,614</av:PointCollection>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="30 - Add Data to Row.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Process\30 - Add Data to Row.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="s:String[]" x:Key="in_Fields">[Fields]</InArgument>
+                    <InArgument x:TypeArguments="s:String[]" x:Key="in_Values">[FieldVaues]</InArgument>
+                    <InOutArgument x:TypeArguments="sd:DataRow" x:Key="io_DataRow">[io_TransactionItem]</InOutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:InvokeWorkflowFile>
+                <FlowStep.Next>
+                  <FlowStep x:Name="__ReferenceID4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:Point x:Key="ShapeLocation">200,614</av:Point>
+                        <av:Size x:Key="ShapeSize">200,62.666666666666664</av:Size>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\40 - Format Data.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Process\40 - Format Data.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InOutArgument x:TypeArguments="sd:DataRow" x:Key="io_DataRow">
+                          <VisualBasicReference x:TypeArguments="sd:DataRow" ExpressionText="io_TransactionItem" />
+                        </InOutArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_APIKey">
+                          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;APIKey&quot;).ToString()" />
+                        </InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_ConvertURL">
+                          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;Endpoint&quot;).ToString()" />
+                        </InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:InvokeWorkflowFile>
+                  </FlowStep>
+                </FlowStep.Next>
+              </FlowStep>
+            </FlowStep.Next>
           </FlowStep>
         </FlowDecision.True>
         <FlowDecision.False>
@@ -173,17 +229,13 @@
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <av:Point x:Key="ShapeLocation">380,248.66666666666669</av:Point>
                 <av:Size x:Key="ShapeSize">200,62.666666666666664</av:Size>
-                <av:PointCollection x:Key="ConnectorLocation">480,311.33333333333337 480,341.33333333333337 300,341.33333333333337 300,388.6666666666667</av:PointCollection>
+                <av:PointCollection x:Key="ConnectorLocation">480,311.33333333333337 480,341.3333333333333 300,341.3333333333333 300,388.6666666666667</av:PointCollection>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\10.B - Read PDF using OCR.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Process\10.B - Read PDF using OCR.xaml">
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\10.B - Read PDF using OCR.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Process\10.5 - Read PDF using OCR.xaml">
               <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="in_PDFFile">
-                  <VisualBasicValue x:TypeArguments="x:String" ExpressionText="InvoiceFile" />
-                </InArgument>
-                <OutArgument x:TypeArguments="x:String" x:Key="out_PDFText">
-                  <VisualBasicReference x:TypeArguments="x:String" ExpressionText="PDFText" />
-                </OutArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PDFFile">[InvoiceFile]</InArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_PDFText">[PDFText]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -197,7 +249,7 @@
           </FlowStep>
         </FlowDecision.False>
       </FlowDecision>
-      <FlowStep x:Name="__ReferenceID3">
+      <FlowStep x:Name="__ReferenceID5">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">200,128.66666666666666</av:Point>
@@ -205,14 +257,10 @@
             <av:PointCollection x:Key="ConnectorLocation">300,191.33333333333331 300,236.66666666666666</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="10 - Read PDF Using Text Method.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="376.6666666666667,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Process\10 - Read PDF Using Text Method.xaml">
+        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="10 - Read PDF Using Text Method.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="200,62.666666666666664" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Process\10 - Read PDF Using Text Method.xaml">
           <ui:InvokeWorkflowFile.Arguments>
-            <InArgument x:TypeArguments="x:String" x:Key="in_PDFFile">
-              <VisualBasicValue x:TypeArguments="x:String" ExpressionText="InvoiceFile" />
-            </InArgument>
-            <OutArgument x:TypeArguments="x:String" x:Key="out_PDFText">
-              <VisualBasicReference x:TypeArguments="x:String" ExpressionText="PDFText" />
-            </OutArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_PDFFile">[InvoiceFile]</InArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_PDFText">[PDFText]</OutArgument>
           </ui:InvokeWorkflowFile.Arguments>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -226,6 +274,8 @@
       </FlowStep>
       <x:Reference>__ReferenceID2</x:Reference>
       <x:Reference>__ReferenceID0</x:Reference>
+      <x:Reference>__ReferenceID3</x:Reference>
+      <x:Reference>__ReferenceID4</x:Reference>
     </Flowchart>
   </Sequence>
 </Activity>
