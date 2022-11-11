@@ -98,7 +98,7 @@
     </sap:WorkflowViewStateService.ViewState>
     <ui:Comment sap:VirtualizedContainerService.HintSize="338,65.33333333333333" sap2010:WorkflowViewState.IdRef="Comment_1" Text="Read PDF with OCR, using UiPath OCR" />
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="338,104.66666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;10.B - Read PDF using OCR: Start...&quot;]" />
-    <ui:ReadPDFWithOCR Text="{x:Null}" DegreeOfParallelism="-1" DisplayName="Read PDF With OCR" FileName="[in_PDFFile]" sap:VirtualizedContainerService.HintSize="338,150.66666666666666" sap2010:WorkflowViewState.IdRef="ReadPDFWithOCR_1" ImageDpi="150" Range="All">
+    <ui:ReadPDFWithOCR DegreeOfParallelism="-1" DisplayName="Read PDF With OCR" FileName="[in_PDFFile]" sap:VirtualizedContainerService.HintSize="338,150.66666666666666" sap2010:WorkflowViewState.IdRef="ReadPDFWithOCR_1" ImageDpi="150" Range="All" Text="[out_PDFText]">
       <ui:ReadPDFWithOCR.OCREngine>
         <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
           <ActivityFunc.Argument>
