@@ -35,7 +35,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1574,4275.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1574,3176.6666666666665</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>TestCase_Process_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="35">
@@ -135,75 +135,74 @@
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="TestCase_Process" sap:VirtualizedContainerService.HintSize="705.3333333333334,4210.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="TestCase_Process" sap:VirtualizedContainerService.HintSize="606.6666666666666,3112" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_TransactionData" />
       <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Config" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_VerifyTable" />
       <Variable x:TypeArguments="s:Exception" Name="Exception" />
+      <Variable x:TypeArguments="sd:DataRow" Name="TransactionItem" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap2010:Annotation.AnnotationText="Get the transaction data, and set the row as the row that is individually being tested. " DisplayName="... Given" sap:VirtualizedContainerService.HintSize="643.3333333333334,763.3333333333334" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence sap2010:Annotation.AnnotationText="Get the transaction data, and set the row as the row that is individually being tested. " DisplayName="... Given" sap:VirtualizedContainerService.HintSize="544.6666666666666,875.3333333333334" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:Comment sap:VirtualizedContainerService.HintSize="338,123.33333333333333" sap2010:WorkflowViewState.IdRef="Comment_1" Text="I would typically build a queue item in my test case, or input data rows directly into process, but this method was much faster and since all data is local, it works easier.&#xD;&#xA;" />
+      <ui:Comment sap:VirtualizedContainerService.HintSize="338,123.33333333333333" sap2010:WorkflowViewState.IdRef="Comment_1" Text="I would typically build a queue item in my test case, or input data rows directly into process, but this method was much faster and since all data is local, it works easier.&#xA;" />
       <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="338,104.66666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Testing File: &quot; + Invoice_File]" />
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Framework\InitAllSettings.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="338,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">
-            <Literal x:TypeArguments="x:String">Data\Config.xlsx</Literal>
-          </InArgument>
-          <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">
-            <VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{&quot;Settings&quot;,&quot;Constants&quot;}" />
-          </InArgument>
-          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">
-            <VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-          </OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">Data\Config.xlsx</InArgument>
+          <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">[{"Settings","Constants"}]</InArgument>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">[Config]</OutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\InitializeTransactionData.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="338,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Process\InitializeTransactionData.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_TransactionData">
-            <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dt_TransactionData" />
-          </OutArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_InputFolder">
-            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;InputFolder&quot;).ToString()" />
-          </InArgument>
+          <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dt_TransactionData">[dt_TransactionData]</OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_InputFolder">[Config("InputFolder").ToString()]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
+      <Assign sap:VirtualizedContainerService.HintSize="338,72" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd:DataRow">[TransactionItem]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd:DataRow">[dt_TransactionData.AsEnumerable().Where(function(dr) dr("Invoice File").ToString() = Invoice_File).First]</InArgument>
+        </Assign.Value>
+      </Assign>
     </Sequence>
-    <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="643.3333333333334,713.3333333333334" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="544.6666666666666,494" sap2010:WorkflowViewState.IdRef="Sequence_3">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="440,591.3333333333334" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.6666666666667,372" sap2010:WorkflowViewState.IdRef="TryCatch_1">
         <TryCatch.Try>
           <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\Process.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Process\Process.xaml">
             <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
-                <VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="dt_TransactionData.AsEnumerable().Where(function(dr) dr(&quot;Invoice File&quot;).ToString() = Invoice_File).First()" />
-              </InArgument>
               <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
                 <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
               </InArgument>
+              <InOutArgument x:TypeArguments="sd:DataRow" x:Key="io_TransactionItem">
+                <VisualBasicReference x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
+              </InOutArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
         </TryCatch.Try>
         <TryCatch.Catches>
-          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="406,409.3333333333333" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.6666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
@@ -232,7 +231,7 @@
         </TryCatch.Catches>
       </TryCatch>
     </Sequence>
-    <Sequence DisplayName="... Then" sap:VirtualizedContainerService.HintSize="643.3333333333334,2532" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence DisplayName="... Then" sap:VirtualizedContainerService.HintSize="544.6666666666666,1540.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Boolean" Name="FileExists" />
       </Sequence.Variables>
@@ -241,21 +240,28 @@
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:Comment sap:VirtualizedContainerService.HintSize="581.3333333333334,65.33333333333333" sap2010:WorkflowViewState.IdRef="Comment_2" Text="Check success and clean up state" />
-      <ui:FileExistsX DisplayName="File Exists - Output File" Exists="[FileExists]" sap:VirtualizedContainerService.HintSize="581.3333333333334,145.33333333333334" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[Config(&quot;OutputFile&quot;).ToString()]" />
-      <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="False" DisplayName="Verify Expression - Output File Exists" Expression="[FileExists]" sap:VirtualizedContainerService.HintSize="581.3333333333334,133.33333333333334" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
-      <If Condition="[FileExists]" sap:VirtualizedContainerService.HintSize="581.3333333333334,1406" sap2010:WorkflowViewState.IdRef="If_2">
+      <ui:Comment sap:VirtualizedContainerService.HintSize="482.6666666666667,65.33333333333333" sap2010:WorkflowViewState.IdRef="Comment_2" Text="Check success and clean up state" />
+      <ui:FileExistsX DisplayName="File Exists - Output File" Exists="[FileExists]" sap:VirtualizedContainerService.HintSize="482.6666666666667,145.33333333333334" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[Config(&quot;OutputFile&quot;).ToString()]" />
+      <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" sap2010:Annotation.AnnotationText="Set to stop workflow if this check fails. No reason to try reading a file that does not exist." ContinueOnFailure="False" DisplayName="Verify Expression - Output File Exists" Expression="[FileExists]" sap:VirtualizedContainerService.HintSize="482.6666666666667,178.66666666666666" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </uta:VerifyExpression>
+      <If Condition="[FileExists]" sap:VirtualizedContainerService.HintSize="482.6666666666667,369.3333333333333" sap2010:WorkflowViewState.IdRef="If_2">
         <If.Then>
-          <Sequence DisplayName="Verify Output Results" sap:VirtualizedContainerService.HintSize="498.6666666666667,1136.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <Sequence DisplayName="Verify Output Results" sap:VirtualizedContainerService.HintSize="400,93.33333333333333" sap2010:WorkflowViewState.IdRef="Sequence_7">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ueab:SequenceX DisplayName="Single Excel Process Scope" sap:VirtualizedContainerService.HintSize="436.6666666666667,93.33333333333333" sap2010:WorkflowViewState.IdRef="SequenceX_2">
+            <ueab:SequenceX DisplayName="Single Excel Process Scope" sap:VirtualizedContainerService.HintSize="602,716.6666666666666" sap2010:WorkflowViewState.IdRef="SequenceX_2">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
@@ -277,9 +283,9 @@
                 </ueab:ExcelApplicationCard.Body>
               </ueab:ExcelApplicationCard>
             </ueab:SequenceX>
-            <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify Expression - Row Count is only one" Expression="[dt_VerifyTable.RowCount = 1]" sap:VirtualizedContainerService.HintSize="436.6666666666667,133.33333333333334" sap2010:WorkflowViewState.IdRef="VerifyExpression_3" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
-            <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify Expression - Correct Column Count" Expression="[dt_VerifyTable.ColumnCount = 1]" sap:VirtualizedContainerService.HintSize="436.6666666666667,133.33333333333334" sap2010:WorkflowViewState.IdRef="VerifyExpression_5" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
-            <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="436.6666666666667,534.6666666666666" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[dt_VerifyTable.Columns]">
+            <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify Expression - Row Count is only one" Expression="[dt_VerifyTable.RowCount = 1]" sap:VirtualizedContainerService.HintSize="602,133.33333333333334" sap2010:WorkflowViewState.IdRef="VerifyExpression_3" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+            <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify Expression - Correct Column Count" Expression="[dt_VerifyTable.ColumnCount = 1]" sap:VirtualizedContainerService.HintSize="602,133.33333333333334" sap2010:WorkflowViewState.IdRef="VerifyExpression_5" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+            <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="602,534.6666666666666" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[dt_VerifyTable.Columns]">
               <ui:ForEach.Body>
                 <ActivityAction x:TypeArguments="sd:DataColumn">
                   <ActivityAction.Argument>
@@ -300,8 +306,8 @@
           </Sequence>
         </If.Then>
       </If>
-      <ui:DeleteFileX DisplayName="Delete File" sap:VirtualizedContainerService.HintSize="581.3333333333334,90.66666666666667" sap2010:WorkflowViewState.IdRef="DeleteFileX_2" Path="[Config(&quot;OutputFile&quot;).ToString()]" />
-      <If Condition="[Exception isnot Nothing]" sap:VirtualizedContainerService.HintSize="581.3333333333334,369.3333333333333" sap2010:WorkflowViewState.IdRef="If_1">
+      <ui:DeleteFileX DisplayName="Delete File" sap:VirtualizedContainerService.HintSize="482.6666666666667,90.66666666666667" sap2010:WorkflowViewState.IdRef="DeleteFileX_2" Path="[Config(&quot;OutputFile&quot;).ToString()]" />
+      <If Condition="[Exception isnot Nothing]" sap:VirtualizedContainerService.HintSize="482.6666666666667,369.3333333333333" sap2010:WorkflowViewState.IdRef="If_1">
         <If.Then>
           <Throw Exception="[Exception]" sap:VirtualizedContainerService.HintSize="334,98.66666666666667" sap2010:WorkflowViewState.IdRef="Throw_1" />
         </If.Then>
