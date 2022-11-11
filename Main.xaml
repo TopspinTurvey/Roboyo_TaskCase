@@ -6,7 +6,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1574,1379.3333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1574,1396</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Main2_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -103,7 +103,7 @@
       <AssemblyReference>System.Collections</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <StateMachine InitialState="{x:Reference __ReferenceID3}" sap2010:Annotation.AnnotationText="Roboyo - Task Case&#xA;&#xA;Task Case presented by Roboyo&#xA;&#xA;Author - Mason Turvey&#xD;&#xA;&#xD;&#xA;Usage: You can run the test cases in Process\Tests to see testing results. When run from main, the process will output to the Data\Output\Output.xlsx file. &#xA;&#xA;Notes: &#xA;&#xA;I opted to use a TDD approach to solve this problem, since all data was prepared in advance. If you monitor the commit history on the repo I shared, you will see that I created test cases before working in Process.xaml, that way my testing was already in place before I started development. This ensures that I can debug the process utilizing my test case, in a contained environment, and also has the added benefit of being easily tested in an automated fashion without extra effort.&#xA;&#xA;The process I followed for TDD: &#xA;&#xA;1. Translate Business Requirements and System Requirements into Test Cases&#xA;2. Make test cases fail (run to ensure)&#xA;3. Begin development to maake test cases succeed&#xA;4. Edit test case to ensure total code coverage&#xA;5. Repeat 3 and 4 until all test cases pass, and sufficient code coverage is achieved (My standard is typically 100% of workflows not in Framework folder must be covered, for libraries 100% coverage no exceptions)&#xA;&#xA;&#xA;This is my first time using UiPath.PDF.Activities package, so bear with me here. Nothing that can't be learned in one night ;)&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;Finally, Inv12.pdf is a pain, but I used levenshtein distance to take that one down." DisplayName="General Business Process" sap:VirtualizedContainerService.HintSize="634,1314.6666666666667" sap2010:WorkflowViewState.IdRef="StateMachine_1">
+  <StateMachine InitialState="{x:Reference __ReferenceID3}" sap2010:Annotation.AnnotationText="Roboyo - Task Case&#xA;&#xA;Task Case presented by Roboyo&#xA;&#xA;Author - Mason Turvey&#xA;&#xA;Usage: You can run the test cases in Process\Tests to see testing results. When run from main, the process will output to the Data\Output\Output.xlsx file. &#xA;&#xA;Notes: &#xA;&#xA;I opted to use a TDD approach to solve this problem, since all data was prepared in advance. If you monitor the commit history on the repo I shared, you will see that I created test cases before working in Process.xaml, that way my testing was already in place before I started development. This ensures that I can debug the process utilizing my test case, in a contained environment, and also has the added benefit of being easily tested in an automated fashion without extra effort.&#xA;&#xA;The process I followed for TDD: &#xA;&#xA;1. Translate Business Requirements and System Requirements into Test Cases&#xA;2. Make test cases fail (run to ensure)&#xA;3. Begin development to maake test cases succeed&#xA;4. Edit test case to ensure total code coverage&#xA;5. Repeat 3 and 4 until all test cases pass, and sufficient code coverage is achieved (My standard is typically 100% of workflows not in Framework folder must be covered, for libraries 100% coverage no exceptions)&#xA;&#xA;&#xA;This is my first time using UiPath.PDF.Activities package, so bear with me here. Nothing that can't be learned in one night ;) &#xA;&#xA;&#xA;Finally, Inv12.pdf is a pain, but I used levenshtein distance to take that one down. I also added a currency converter, since it seems the example business utilizes EUR primarily." DisplayName="General Business Process" sap:VirtualizedContainerService.HintSize="634,1331.3333333333333" sap2010:WorkflowViewState.IdRef="StateMachine_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -227,7 +227,7 @@
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <Transition.To>
-            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Process a single transaction. &#xA;The result of the processing can be: 1) Success, 2) Business Exception, 3) System Exception. &#xA;In the case of a system exception, the transaction can be automatically retried." DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="485.33333333333326,1146" sap2010:WorkflowViewState.IdRef="State_3">
+            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Process a single transaction. &#xA;The result of the processing can be: 1) Success, 2) Business Exception, 3) System Exception. &#xA;In the case of a system exception, the transaction can be automatically retried." DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="231.33333333333334,208.66666666666666" sap2010:WorkflowViewState.IdRef="State_3">
               <State.Entry>
                 <TryCatch DisplayName="Try to process transaction" sap:VirtualizedContainerService.HintSize="438.6666666666667,629.3333333333334" sap2010:WorkflowViewState.IdRef="TryCatch_9">
                   <sap:WorkflowViewStateService.ViewState>
@@ -253,12 +253,8 @@
                       </Assign>
                       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Process workflow" sap:VirtualizedContainerService.HintSize="338,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_24" UnSafe="False" WorkflowFileName="Process\Process.xaml">
                         <ui:InvokeWorkflowFile.Arguments>
-                          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-                            <VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="Config" />
-                          </InArgument>
-                          <InOutArgument x:TypeArguments="sd:DataRow" x:Key="io_TransactionItem">
-                            <VisualBasicReference x:TypeArguments="sd:DataRow" ExpressionText="TransactionItem" />
-                          </InOutArgument>
+                          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
+                          <InOutArgument x:TypeArguments="sd:DataRow" x:Key="io_TransactionItem">[TransactionItem]</InOutArgument>
                         </ui:InvokeWorkflowFile.Arguments>
                       </ui:InvokeWorkflowFile>
                     </Sequence>
@@ -532,22 +528,14 @@
                                         <ui:Comment sap:VirtualizedContainerService.HintSize="338,84.66666666666667" sap2010:WorkflowViewState.IdRef="Comment_2" Text="This is where the bulk sort and export to excel happens" />
                                         <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\SortInvoicesByDate.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="338,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_31" UnSafe="False" WorkflowFileName="Process\SortInvoicesByDate.xaml">
                                           <ui:InvokeWorkflowFile.Arguments>
-                                            <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Invoices">
-                                              <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="dt_TransactionData" />
-                                            </InOutArgument>
-                                            <InArgument x:TypeArguments="x:String" x:Key="in_SortField">
-                                              <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;SortField&quot;).ToString()" />
-                                            </InArgument>
+                                            <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_Invoices">[dt_TransactionData]</InOutArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="in_SortField">[Config("SortField").ToString()]</InArgument>
                                           </ui:InvokeWorkflowFile.Arguments>
                                         </ui:InvokeWorkflowFile>
                                         <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\ExportInvoicesToExcel.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="338,124" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_32" UnSafe="False" WorkflowFileName="Process\ExportInvoicesToExcel.xaml">
                                           <ui:InvokeWorkflowFile.Arguments>
-                                            <InArgument x:TypeArguments="x:String" x:Key="in_OutputFile">
-                                              <VisualBasicValue x:TypeArguments="x:String" ExpressionText="Config(&quot;OutputFile&quot;).ToString()" />
-                                            </InArgument>
-                                            <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_DataToExport">
-                                              <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_TransactionData" />
-                                            </InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="in_OutputFile">[Config("OutputFile").ToString()]</InArgument>
+                                            <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_DataToExport">[dt_TransactionData]</InArgument>
                                           </ui:InvokeWorkflowFile.Arguments>
                                         </ui:InvokeWorkflowFile>
                                       </Sequence>
